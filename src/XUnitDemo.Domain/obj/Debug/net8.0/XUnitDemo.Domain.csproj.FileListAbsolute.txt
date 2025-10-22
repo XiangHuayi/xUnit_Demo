@@ -1,0 +1,11 @@
+C:\Users\xiang\Documents\trae_projects\xUnit_Demo\src\XUnitDemo.Domain\bin\Debug\net8.0\XUnitDemo.Domain.deps.json
+C:\Users\xiang\Documents\trae_projects\xUnit_Demo\src\XUnitDemo.Domain\bin\Debug\net8.0\XUnitDemo.Domain.dll
+C:\Users\xiang\Documents\trae_projects\xUnit_Demo\src\XUnitDemo.Domain\bin\Debug\net8.0\XUnitDemo.Domain.pdb
+C:\Users\xiang\Documents\trae_projects\xUnit_Demo\src\XUnitDemo.Domain\obj\Debug\net8.0\XUnitDemo.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\xiang\Documents\trae_projects\xUnit_Demo\src\XUnitDemo.Domain\obj\Debug\net8.0\XUnitDemo.Domain.AssemblyInfoInputs.cache
+C:\Users\xiang\Documents\trae_projects\xUnit_Demo\src\XUnitDemo.Domain\obj\Debug\net8.0\XUnitDemo.Domain.AssemblyInfo.cs
+C:\Users\xiang\Documents\trae_projects\xUnit_Demo\src\XUnitDemo.Domain\obj\Debug\net8.0\XUnitDemo.Domain.csproj.CoreCompileInputs.cache
+C:\Users\xiang\Documents\trae_projects\xUnit_Demo\src\XUnitDemo.Domain\obj\Debug\net8.0\XUnitDemo.Domain.dll
+C:\Users\xiang\Documents\trae_projects\xUnit_Demo\src\XUnitDemo.Domain\obj\Debug\net8.0\refint\XUnitDemo.Domain.dll
+C:\Users\xiang\Documents\trae_projects\xUnit_Demo\src\XUnitDemo.Domain\obj\Debug\net8.0\XUnitDemo.Domain.pdb
+C:\Users\xiang\Documents\trae_projects\xUnit_Demo\src\XUnitDemo.Domain\obj\Debug\net8.0\ref\XUnitDemo.Domain.dll

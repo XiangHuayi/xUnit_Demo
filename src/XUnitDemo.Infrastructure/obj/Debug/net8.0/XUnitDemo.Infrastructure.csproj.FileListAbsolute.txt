@@ -1,0 +1,17 @@
+C:\Users\xiang\Documents\trae_projects\xUnit_Demo\src\XUnitDemo.Infrastructure\bin\Debug\net8.0\XUnitDemo.Infrastructure.deps.json
+C:\Users\xiang\Documents\trae_projects\xUnit_Demo\src\XUnitDemo.Infrastructure\bin\Debug\net8.0\XUnitDemo.Infrastructure.dll
+C:\Users\xiang\Documents\trae_projects\xUnit_Demo\src\XUnitDemo.Infrastructure\bin\Debug\net8.0\XUnitDemo.Infrastructure.pdb
+C:\Users\xiang\Documents\trae_projects\xUnit_Demo\src\XUnitDemo.Infrastructure\bin\Debug\net8.0\XUnitDemo.Application.dll
+C:\Users\xiang\Documents\trae_projects\xUnit_Demo\src\XUnitDemo.Infrastructure\bin\Debug\net8.0\XUnitDemo.Domain.dll
+C:\Users\xiang\Documents\trae_projects\xUnit_Demo\src\XUnitDemo.Infrastructure\bin\Debug\net8.0\XUnitDemo.Application.pdb
+C:\Users\xiang\Documents\trae_projects\xUnit_Demo\src\XUnitDemo.Infrastructure\bin\Debug\net8.0\XUnitDemo.Domain.pdb
+C:\Users\xiang\Documents\trae_projects\xUnit_Demo\src\XUnitDemo.Infrastructure\obj\Debug\net8.0\XUnitDemo.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\xiang\Documents\trae_projects\xUnit_Demo\src\XUnitDemo.Infrastructure\obj\Debug\net8.0\XUnitDemo.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\xiang\Documents\trae_projects\xUnit_Demo\src\XUnitDemo.Infrastructure\obj\Debug\net8.0\XUnitDemo.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\xiang\Documents\trae_projects\xUnit_Demo\src\XUnitDemo.Infrastructure\obj\Debug\net8.0\XUnitDemo.Infrastructure.AssemblyInfo.cs
+C:\Users\xiang\Documents\trae_projects\xUnit_Demo\src\XUnitDemo.Infrastructure\obj\Debug\net8.0\XUnitDemo.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\xiang\Documents\trae_projects\xUnit_Demo\src\XUnitDemo.Infrastructure\obj\Debug\net8.0\XUnitDem.324073C3.Up2Date
+C:\Users\xiang\Documents\trae_projects\xUnit_Demo\src\XUnitDemo.Infrastructure\obj\Debug\net8.0\XUnitDemo.Infrastructure.dll
+C:\Users\xiang\Documents\trae_projects\xUnit_Demo\src\XUnitDemo.Infrastructure\obj\Debug\net8.0\refint\XUnitDemo.Infrastructure.dll
+C:\Users\xiang\Documents\trae_projects\xUnit_Demo\src\XUnitDemo.Infrastructure\obj\Debug\net8.0\XUnitDemo.Infrastructure.pdb
+C:\Users\xiang\Documents\trae_projects\xUnit_Demo\src\XUnitDemo.Infrastructure\obj\Debug\net8.0\ref\XUnitDemo.Infrastructure.dll

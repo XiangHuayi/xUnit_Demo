@@ -1,0 +1,91 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Test with coverage (collector)
+        run: |
+          dotnet test --configuration Release --no-build \
+            --settings tests/XUnitDemo.Tests/XUnitDemo.runsettings \
+            --collect:"XPlat Code Coverage" \
+            --results-directory tests/XUnitDemo.Tests/TestResults
+
+      - name: Generate HTML coverage report
+        run: |
+          dotnet tool restore
+          dotnet tool run reportgenerator \
+            -reports:tests/XUnitDemo.Tests/TestResults/**/coverage.cobertura.xml \
+            -targetdir:tests/XUnitDemo.Tests/TestResults/CoverageReport \
+            -reporttypes:HtmlInline_AzurePipelines
+
+      - name: Upload coverage artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: tests/XUnitDemo.Tests/TestResults/CoverageReport
+
+  enforce-thresholds:
+    runs-on: windows-latest
+    needs: build-and-test
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Run tests with coverage thresholds (msbuild)
+        run: |
+          dotnet test tests/XUnitDemo.Tests/XUnitDemo.Tests.csproj \
+            --configuration Release --no-restore --no-build \
+            /p:CollectCoverage=true \
+            /p:CoverletOutputFormat=cobertura \
+            /p:Threshold=85 \
+            /p:ThresholdType=line \
+            /p:Exclude="[xunit*]*,[Moq*]*"
+
+  publish-app:
+    runs-on: windows-latest
+    needs: enforce-thresholds
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Restore & Publish Console App
+        run: |
+          dotnet restore
+          dotnet publish src/XUnitDemo.Console/XUnitDemo.Console.csproj -c Release -o dist/XUnitDemo.Console
+      - name: Upload published app
+        uses: actions/upload-artifact@v4
+        with:
+          name: console-app
+          path: dist/XUnitDemo.Console
