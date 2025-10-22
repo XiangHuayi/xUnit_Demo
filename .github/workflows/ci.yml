@@ -25,18 +25,20 @@ jobs:
         run: dotnet build --configuration Release --no-restore
 
       - name: Test with coverage (collector)
+        shell: pwsh
         run: |
-          dotnet test --configuration Release --no-build \
-            --settings tests/XUnitDemo.Tests/XUnitDemo.runsettings \
-            --collect:"XPlat Code Coverage" \
+          dotnet test --configuration Release --no-build `
+            --settings tests/XUnitDemo.Tests/XUnitDemo.runsettings `
+            --collect:"XPlat Code Coverage" `
             --results-directory tests/XUnitDemo.Tests/TestResults
 
       - name: Generate HTML coverage report
+        shell: pwsh
         run: |
           dotnet tool restore
-          dotnet tool run reportgenerator \
-            -reports:tests/XUnitDemo.Tests/TestResults/**/coverage.cobertura.xml \
-            -targetdir:tests/XUnitDemo.Tests/TestResults/CoverageReport \
+          dotnet tool run reportgenerator `
+            -reports:tests/XUnitDemo.Tests/TestResults/**/coverage.cobertura.xml `
+            -targetdir:tests/XUnitDemo.Tests/TestResults/CoverageReport `
             -reporttypes:HtmlInline_AzurePipelines
 
       - name: Upload coverage artifact
@@ -61,13 +63,14 @@ jobs:
         run: dotnet restore
 
       - name: Run tests with coverage thresholds (msbuild)
+        shell: pwsh
         run: |
-          dotnet test tests/XUnitDemo.Tests/XUnitDemo.Tests.csproj \
-            --configuration Release --no-restore --no-build \
-            /p:CollectCoverage=true \
-            /p:CoverletOutputFormat=cobertura \
-            /p:Threshold=85 \
-            /p:ThresholdType=line \
+          dotnet test tests/XUnitDemo.Tests/XUnitDemo.Tests.csproj `
+            --configuration Release --no-restore --no-build `
+            /p:CollectCoverage=true `
+            /p:CoverletOutputFormat=cobertura `
+            /p:Threshold=85 `
+            /p:ThresholdType=line `
             /p:Exclude="[xunit*]*,[Moq*]*"
 
   publish-app:
