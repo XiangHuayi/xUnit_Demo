@@ -70,8 +70,7 @@ jobs:
             /p:CollectCoverage=true `
             /p:CoverletOutputFormat=cobertura `
             /p:Threshold=85 `
-            /p:ThresholdType=line `
-            /p:Exclude='[xunit*]*;[Moq*]*'
+            /p:ThresholdType=line
 
   publish-app:
     runs-on: windows-latest
