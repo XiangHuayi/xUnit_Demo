@@ -54,6 +54,17 @@ jobs:
         -reporttypes:HtmlInline_AzurePipelines
     displayName: 'Generate HTML coverage report'
 
+  # Publish code coverage results so the build summary shows coverage
+  - task: PublishCodeCoverageResults@2
+    displayName: 'Publish code coverage results'
+    inputs:
+      # valid values: 'Cobertura' or 'JaCoCo'
+      codeCoverageTool: 'Cobertura'
+      # path (can use globs) to the Cobertura XML produced by Coverlet/dotnet test
+      summaryFileLocation: '$(testResultsDir)/**/coverage.cobertura.xml'
+      # directory that contains the generated HTML report (optional but useful)
+      reportDirectory: '$(coverageReportDir)'
+
   - task: PublishBuildArtifacts@1
     displayName: 'Upload coverage artifact'
     inputs:
