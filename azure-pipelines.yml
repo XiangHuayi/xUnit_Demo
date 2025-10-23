@@ -1,0 +1,117 @@
+# ASP.NET Core (.NET Framework)
+# Build and test ASP.NET Core projects targeting the full .NET Framework.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+  branches:
+    include:
+      - main
+
+pr:
+  branches:
+    include:
+      - main
+
+variables:
+  buildConfiguration: 'Release'
+  dotnetVersion: '8.0.x'
+  testResultsDir: 'tests/XUnitDemo.Tests/TestResults'
+  coverageReportDir: '$(testResultsDir)/CoverageReport'
+
+jobs:
+- job: BuildAndTest
+  displayName: Build and Test (with coverage)
+  pool:
+    vmImage: 'windows-latest'
+  steps:
+  - checkout: self
+
+  - task: UseDotNet@2
+    displayName: 'Setup .NET'
+    inputs:
+      packageType: 'sdk'
+      version: '8.0.x'
+
+  - script: dotnet restore
+    displayName: 'Restore dependencies'
+
+  - script: dotnet build --configuration $(buildConfiguration) --no-restore
+    displayName: 'Build'
+
+  - pwsh: |
+      dotnet test --configuration $(buildConfiguration) --no-build `
+        --settings tests/XUnitDemo.Tests/XUnitDemo.runsettings `
+        --collect:"XPlat Code Coverage" `
+        --results-directory $(testResultsDir)
+    displayName: 'Test with coverage (collector)'
+
+  - pwsh: |
+      dotnet tool restore
+      dotnet tool run reportgenerator `
+        -reports:$(testResultsDir)/**/coverage.cobertura.xml `
+        -targetdir:$(coverageReportDir) `
+        -reporttypes:HtmlInline_AzurePipelines
+    displayName: 'Generate HTML coverage report'
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Upload coverage artifact'
+    inputs:
+      PathtoPublish: '$(coverageReportDir)'
+      ArtifactName: 'coverage-report'
+      publishLocation: 'Container'
+
+- job: EnforceThresholds
+  displayName: Enforce coverage thresholds
+  dependsOn: BuildAndTest
+  pool:
+    vmImage: 'windows-latest'
+  steps:
+  - checkout: self
+
+  - task: UseDotNet@2
+    displayName: 'Setup .NET'
+    inputs:
+      packageType: 'sdk'
+      version: '8.0.x'
+
+  - script: dotnet restore
+    displayName: 'Restore dependencies'
+
+  - script: dotnet build --configuration $(buildConfiguration) --no-restore
+    displayName: 'Build (Release) for thresholds'
+
+  - pwsh: |
+      dotnet test tests/XUnitDemo.Tests/XUnitDemo.Tests.csproj `
+        --configuration $(buildConfiguration) --no-restore --no-build `
+        /p:CollectCoverage=true `
+        /p:CoverletOutputFormat=cobertura `
+        /p:Threshold=20 `
+        /p:ThresholdType=line
+    displayName: 'Run tests with coverage thresholds (msbuild)'
+
+- job: PublishApp
+  displayName: Publish console app
+  dependsOn: EnforceThresholds
+  pool:
+    vmImage: 'windows-latest'
+  steps:
+  - checkout: self
+
+  - task: UseDotNet@2
+    displayName: 'Setup .NET'
+    inputs:
+      packageType: 'sdk'
+      version: '8.0.x'
+
+  - script: |
+      dotnet restore
+      dotnet publish src/XUnitDemo.Console/XUnitDemo.Console.csproj -c $(buildConfiguration) -o $(Build.ArtifactStagingDirectory)/XUnitDemo.Console
+    displayName: 'Restore & Publish Console App'
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Upload published app'
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)/XUnitDemo.Console'
+      ArtifactName: 'console-app'
+      publishLocation: 'Container'
