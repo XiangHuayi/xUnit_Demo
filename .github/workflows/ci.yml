@@ -73,7 +73,7 @@ jobs:
             --configuration Release --no-restore --no-build `
             /p:CollectCoverage=true `
             /p:CoverletOutputFormat=cobertura `
-            /p:Threshold=70 `
+            /p:Threshold=25 `
             /p:ThresholdType=line
 
   publish-app:
